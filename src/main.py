@@ -8,13 +8,15 @@ import json
 from datetime import datetime
 
 # Configure logging
-logging.basicConfig(level=logging.INFO)
+logging.basicConfig(
+    level=logging.INFO,
+    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
+    handlers=[
+        logging.FileHandler("debug_webhooks.log"),
+        logging.StreamHandler()
+    ]
+)
 logger = logging.getLogger(__name__)
-
-# Add file handler to capture logs we can read
-fh = logging.FileHandler('debug_webhooks.log')
-fh.setLevel(logging.INFO)
-logger.addHandler(fh)
 
 app = FastAPI(title="Landbot-HubSpot Middleware")
 
@@ -127,19 +129,22 @@ async def hubspot_outbound(payload: HubSpotWebhookPayload, background_tasks: Bac
         # Ignore other events (like status updates, typing indicators if subscribed)
         return {"status": "ignored", "type": payload.type}
 
-    # Extract Landbot ID from Thread ID
-    if not payload.channelIntegrationThreadIds:
-        logger.warning("No channelIntegrationThreadIds found in payload.")
-        # Fallback: check nested message integrationThreadId if available (depends on schema version)
-        # But per our model, we look at the top level list.
+    # Extract Landbot ID (Thread ID or Delivery Identifier)
+    landbot_id_str = None
+    if payload.channelIntegrationThreadIds:
+        landbot_id_str = payload.channelIntegrationThreadIds[0]
+    
+    # Optional: HubSpot also sends recipients in some payload versions
+    # For now, we expect the Thread ID to match our Landbot Customer ID
+    
+    if not landbot_id_str:
+        logger.warning(f"No thread ID found in payload: {payload.dict()}")
         return {"status": "ignored", "reason": "No thread ID"}
 
     try:
-        # Assuming the first thread ID is the Landbot Customer ID
-        landbot_id_str = payload.channelIntegrationThreadIds[0]
         landbot_id = int(landbot_id_str)
         
-        message_text = payload.message.text
+        message_text = payload.message.text or payload.message.richText
         # Optional: Handle rich text or attachments if needed in future
         
         if not message_text:

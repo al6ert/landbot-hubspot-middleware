@@ -111,23 +111,11 @@ class HubSpotService:
             "type": "CHANNEL_SPECIFIC_OPAQUE_ID",
             "value": str(landbot_id)
         }
-        
-        if phone:
-            # Basic E.164 formatting check
-            clean_phone = phone.strip()
-            if not clean_phone.startswith('+'):
-                clean_phone = f"+{clean_phone}"
-            
-            delivery_identifier = {
-                "type": "HS_PHONE_NUMBER",
-                "value": clean_phone
-            }
 
         # Payload for 'INCOMING' message (Visitor -> HubSpot)
         payload = {
             "text": message_text,
             "channelAccountId": settings.HUBSPOT_CHANNEL_ACCOUNT_ID,
-            "integrationThreadId": str(landbot_id),
             "messageDirection": "INCOMING",
             "senders": [
                 {
@@ -141,11 +129,13 @@ class HubSpotService:
         
         try:
             response = requests.post(url, headers=headers, json=payload)
+            if response.status_code >= 400:
+                logger.error(f"❌ HubSpot API Error ({response.status_code}): {response.text}")
             response.raise_for_status()
             logger.info("Message published successfully.")
             return response.json()
         except requests.exceptions.HTTPError as e:
-            logger.error(f"Error publishing message: {e.response.text}")
+            # Already logged above if status >= 400
             raise e
         except Exception as e:
             logger.error(f"Unexpected error publishing message: {e}")

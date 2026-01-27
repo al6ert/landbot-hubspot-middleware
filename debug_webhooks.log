@@ -4,5 +4,28 @@ Ignoring message from bot
 Ignoring message from bot
 Ignoring message from customer 507039831: No agent assigned (Bot mode)
 Ignoring message from bot
+Processing message for HubSpot: Usuario (507039831): Si
+Error in process_landbot_to_hubspot: 400 Client Error: Bad Request for url: https://api.hubapi.com/conversations/v3/custom-channels/2300310/messages
 Ignoring message from sys
-Processing message for HubSpot: Albert (507039831): Ahora si debería crear un contacto y ticket en hubspot
+2026-01-27 20:11:58,398 - src.main - INFO - Processing message for HubSpot: Usuario (507039831): Test message
+2026-01-27 20:11:58,398 - src.services.hubspot_service - INFO - Refreshing HubSpot Access Token...
+2026-01-27 20:11:58,775 - src.services.hubspot_service - INFO - Access Token refreshed successfully.
+2026-01-27 20:11:59,493 - src.services.hubspot_service - INFO - Publishing message to HubSpot: {"text": "Test message", "channelAccountId": "2589436607", "integrationThreadId": "507039831", "messageDirection": "INCOMING", "senders": [{"name": "Usuario", "deliveryIdentifier": {"type": "HS_PHONE_NUMBER", "value": "+34600000000"}}]}
+2026-01-27 20:11:59,701 - src.services.hubspot_service - ERROR - ❌ HubSpot API Error (400): {"status":"error","message":"`integrationThreadId` is not allowed for channels with the DELIVERY_IDENTIFIER threading model","correlationId":"87fe31bd-5b6f-47d4-82d2-9859e8dd5278","category":"VALIDATION_ERROR","subCategory":"ChannelIntegrationMessagePublishError.INTEGRATION_THREAD_ID_NOT_ALLOWED_FOR_DELIVERY_IDENTIFIER_THREADING_MODEL"}
+2026-01-27 20:11:59,701 - src.main - ERROR - Error in process_landbot_to_hubspot: 400 Client Error: Bad Request for url: https://api.hubapi.com/conversations/v3/custom-channels/2300310/messages
+2026-01-27 20:12:23,091 - src.main - INFO - Processing message for HubSpot: Usuario (507039831): Test message 2
+2026-01-27 20:12:23,092 - src.services.hubspot_service - INFO - Refreshing HubSpot Access Token...
+2026-01-27 20:12:23,557 - src.services.hubspot_service - INFO - Access Token refreshed successfully.
+2026-01-27 20:12:23,776 - src.services.hubspot_service - INFO - Publishing message to HubSpot: {"text": "Test message 2", "channelAccountId": "2589436607", "integrationThreadId": "507039831", "messageDirection": "INCOMING", "senders": [{"name": "Usuario", "deliveryIdentifier": {"type": "CHANNEL_SPECIFIC_OPAQUE_ID", "value": "507039831"}}]}
+2026-01-27 20:12:23,939 - src.services.hubspot_service - ERROR - ❌ HubSpot API Error (400): {"status":"error","message":"`integrationThreadId` is not allowed for channels with the DELIVERY_IDENTIFIER threading model","correlationId":"89cd332c-e22e-4fcb-9111-3f53f7d3bd41","category":"VALIDATION_ERROR","subCategory":"ChannelIntegrationMessagePublishError.INTEGRATION_THREAD_ID_NOT_ALLOWED_FOR_DELIVERY_IDENTIFIER_THREADING_MODEL"}
+2026-01-27 20:12:23,939 - src.main - ERROR - Error in process_landbot_to_hubspot: 400 Client Error: Bad Request for url: https://api.hubapi.com/conversations/v3/custom-channels/2300310/messages
+2026-01-27 20:12:38,809 - src.main - INFO - Processing message for HubSpot: Usuario (507039831): Test message 3
+2026-01-27 20:12:38,809 - src.services.hubspot_service - INFO - Refreshing HubSpot Access Token...
+2026-01-27 20:12:39,137 - src.services.hubspot_service - INFO - Access Token refreshed successfully.
+2026-01-27 20:12:39,325 - src.services.hubspot_service - INFO - Publishing message to HubSpot: {"text": "Test message 3", "channelAccountId": "2589436607", "messageDirection": "INCOMING", "senders": [{"name": "Usuario", "deliveryIdentifier": {"type": "CHANNEL_SPECIFIC_OPAQUE_ID", "value": "507039831"}}]}
+2026-01-27 20:12:39,612 - src.services.hubspot_service - INFO - Message published successfully.
+2026-01-27 20:13:13,629 - src.main - INFO - Processing message for HubSpot: Usuario (507039831): Verify final fix
+2026-01-27 20:13:13,630 - src.services.hubspot_service - INFO - Refreshing HubSpot Access Token...
+2026-01-27 20:13:14,039 - src.services.hubspot_service - INFO - Access Token refreshed successfully.
+2026-01-27 20:13:14,217 - src.services.hubspot_service - INFO - Publishing message to HubSpot: {"text": "Verify final fix", "channelAccountId": "2589436607", "messageDirection": "INCOMING", "senders": [{"name": "Usuario", "deliveryIdentifier": {"type": "CHANNEL_SPECIFIC_OPAQUE_ID", "value": "507039831"}}]}
+2026-01-27 20:13:14,440 - src.services.hubspot_service - INFO - Message published successfully.
