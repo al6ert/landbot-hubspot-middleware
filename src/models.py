@@ -11,9 +11,15 @@ class LandbotMessage(BaseModel):
     message: str
     timestamp: Optional[int] = None
 
+class HubSpotMessageContent(BaseModel):
+    text: Optional[str] = None
+    richText: Optional[str] = None
+
 class HubSpotWebhookPayload(BaseModel):
-    # Depending on how the workflow webhook is configured, payload varies.
-    # We expect custom payload as defined in implementation plan.
-    ticket_id: int
-    landbot_id: str
-    reply_text: str
+    type: str
+    channelId: str
+    message: HubSpotMessageContent
+    channelIntegrationThreadIds: list[str] = []
+    
+    # Allow extra fields safely
+    model_config = {"extra": "ignore"}

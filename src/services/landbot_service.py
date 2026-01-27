@@ -14,7 +14,8 @@ class LandbotService:
         Send a text message to a Landbot user.
         WARNING: For WhatsApp, this only works within the 24h session window.
         """
-        url = f"{self.base_url}/customers/{landbot_id}/send_text"
+        # Ensure correct URL format with trailing slash
+        url = f"https://api.landbot.io/v1/customers/{landbot_id}/send_text/"
         payload = {
             "message": message,
             "extra": {

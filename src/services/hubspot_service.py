@@ -1,57 +1,68 @@
 from typing import Optional
 from hubspot import HubSpot
-from hubspot.crm.tickets import SimplePublicObjectInputForCreate, PublicObjectSearchRequest
 from hubspot.crm.contacts import SimplePublicObjectInputForCreate as ContactInput, PublicObjectSearchRequest as ContactSearchRequest
-from hubspot.crm.objects.notes import SimplePublicObjectInputForCreate as NoteInput
 from src.config import settings
+import requests
 import json
-from datetime import datetime
+import logging
+from datetime import datetime, timedelta
+
+logger = logging.getLogger(__name__)
 
 class HubSpotService:
     def __init__(self):
-        self.client = HubSpot(access_token=settings.HUBSPOT_ACCESS_TOKEN)
+        self._access_token = None
+        self._token_expires_at = datetime.min
+        # Initialize client without token initially, or with a dummy one
+        self.client = HubSpot()
 
-    def find_active_ticket(self, landbot_id: int) -> Optional[str]:
+    def _refresh_access_token(self) -> str:
         """
-        Search for an OPEN ticket with the specific landbot_customer_id.
+        Refresh the OAuth Access Token using the Refresh Token.
         """
-        filter_group = {
-            "filters": [
-                {
-                    "propertyName": settings.PROP_LANDBOT_ID,
-                    "operator": "EQ",
-                    "value": str(landbot_id)
-                },
-                {
-                    "propertyName": "hs_pipeline_stage",
-                    "operator": "NEQ", 
-                    "value": "4" # Assuming '4' is Closed. TODO: Verify pipeline stage IDs.
-                }
-            ]
+        logger.info("Refreshing HubSpot Access Token...")
+        url = "https://api.hubapi.com/oauth/v1/token"
+        data = {
+            "grant_type": "refresh_token",
+            "client_id": settings.HUBSPOT_CLIENT_ID,
+            "client_secret": settings.HUBSPOT_CLIENT_SECRET,
+            "refresh_token": settings.HUBSPOT_REFRESH_TOKEN
         }
         
-        public_object_search_request = PublicObjectSearchRequest(
-            filter_groups=[filter_group],
-            properties=["subject", "hs_pipeline_stage", settings.PROP_LANDBOT_ID]
-        )
-        
         try:
-            response = self.client.crm.tickets.search_api.do_search(
-                public_object_search_request=public_object_search_request
-            )
-            if response.results:
-                return response.results[0].id
-            return None
+            response = requests.post(url, data=data)
+            response.raise_for_status()
+            tokens = response.json()
+            
+            self._access_token = tokens["access_token"]
+            expires_in = tokens.get("expires_in", 1800)
+            self._token_expires_at = datetime.now() + timedelta(seconds=expires_in - 60) # Buffer
+            
+            # Update client with new token
+            self.client.access_token = self._access_token
+            
+            logger.info("Access Token refreshed successfully.")
+            return self._access_token
         except Exception as e:
-            print(f"Error searching ticket: {e}")
-            return None
+            logger.error(f"Failed to refresh token: {e}")
+            raise e
 
-    
+    def get_token(self) -> str:
+        """
+        Get a valid access token, refreshing if necessary.
+        """
+        if not self._access_token or datetime.now() >= self._token_expires_at:
+            return self._refresh_access_token()
+        return self._access_token
+
     def get_or_create_contact(self, name: str, phone: str) -> str:
         """
         Search for contact by phone. If not found, create one.
         Returns Contact ID.
         """
+        # Ensure token is valid
+        self.get_token()
+        
         # 1. Search by Phone
         filter_group = {
             "filters": [{
@@ -77,104 +88,52 @@ class HubSpotService:
             return create_res.id
             
         except Exception as e:
-            print(f"Error in get_or_create_contact: {e}")
-            # Fallback: If we can't create/find contact, we might return None, 
-            # but to be safe let's re-raise or handle. 
-            # ideally we shouldn't block ticket creation if contact fails, but business logic varies.
+            logger.error(f"Error in get_or_create_contact: {e}")
             raise e
 
-    def create_ticket(self, customer_data: dict, initial_message: str) -> str:
+    def publish_message_to_channel(self, landbot_id: int, message_text: str, sender_name: str = "Visitor"):
         """
-        Create a new ticket and associate it with the Contact.
+        Publish a message to the HubSpot Custom Channel.
+        Identifies the conversation thread by landbot_id.
         """
-        # 1. Provide Contact resolution
-        contact_id = None
-        if customer_data.get('phone'):
-            try:
-                contact_id = self.get_or_create_contact(customer_data['name'], customer_data['phone'])
-            except Exception as e:
-                print(f"Warning: Could not link contact: {e}")
-
-        # 2. Create Ticket
-        properties = {
-            "subject": f"Chat with {customer_data['name']}",
-            "hs_pipeline": "0", 
-            "hs_pipeline_stage": "1",
-            "hs_ticket_priority": "HIGH",
-            settings.PROP_LANDBOT_ID: str(customer_data['id']),
-            "content": f"Initial message: {initial_message}" 
+        token = self.get_token()
+        
+        url = f"https://api.hubapi.com/conversations/v3/custom-channels/{settings.HUBSPOT_CHANNEL_ID}/messages"
+        
+        headers = {
+            "Authorization": f"Bearer {token}",
+            "Content-Type": "application/json"
         }
         
-        ticket_input = SimplePublicObjectInputForCreate(properties=properties)
-        try:
-            ticket_response = self.client.crm.tickets.basic_api.create(
-                simple_public_object_input_for_create=ticket_input
-            )
-            ticket_id = ticket_response.id
-            
-            # 3. Associate Ticket with Contact (if found/created)
-            if contact_id:
-                self.client.crm.associations.v4.basic_api.create(
-                    object_type="ticket",
-                    object_id=ticket_id,
-                    to_object_type="contact",
-                    to_object_id=contact_id,
-                    association_spec=[
-                        {
-                            "associationCategory": "HUBSPOT_DEFINED",
-                            "associationTypeId": 16 # Ticket to Contact (Standard)
-                        }
-                    ]
-                )
-            
-            return ticket_id
-        except Exception as e:
-            print(f"Error creating ticket: {e}")
-            raise e
-
-    def add_note_to_ticket(self, ticket_id: str, message: str, direction: str = "Inbound"):
-        """
-        Create a Note and associate it with the Ticket.
-        
-        Direction: 'Inbound' (User -> Agent) or 'Outbound' (Agent -> User)
-        """
-        timestamp = int(datetime.now().timestamp() * 1000)
-        
-        # Format the note specifically for readability
-        note_body = f"<b>[{direction}] from WhatsApp:</b><br/>{message}"
-        
-        properties = {
-            "hs_timestamp": str(timestamp),
-            "hs_note_body": note_body
-        }
-        
-        note_input = NoteInput(properties=properties)
-        
-        try:
-            # 1. Create Note
-            note_response = self.client.crm.objects.notes.basic_api.create(
-                simple_public_object_input_for_create=note_input
-            )
-            note_id = note_response.id
-            
-            # 2. Associate Note with Ticket
-            # Association Type ID for Note to Ticket is usually 228
-            self.client.crm.associations.v4.basic_api.create(
-                object_type="note",
-                object_id=note_id,
-                to_object_type="ticket",
-                to_object_id=ticket_id,
-                association_spec=[
-                    {
-                        "associationCategory": "HUBSPOT_DEFINED",
-                        "associationTypeId": 228 
+        # Payload for 'INCOMING' message (Visitor -> HubSpot)
+        payload = {
+            "text": message_text,
+            "channelAccountId": settings.HUBSPOT_CHANNEL_ACCOUNT_ID,
+            "integrationThreadId": str(landbot_id),
+            "messageDirection": "INCOMING",
+            "senders": [
+                {
+                    "name": sender_name,
+                    "deliveryIdentifier": {
+                        "type": "CHANNEL_SPECIFIC_OPAQUE_ID",
+                        "value": str(landbot_id)
                     }
-                ]
-            )
-            return note_id
-            
+                }
+            ]
+        }
+        
+        logger.info(f"Publishing message to HubSpot: {json.dumps(payload)}")
+        
+        try:
+            response = requests.post(url, headers=headers, json=payload)
+            response.raise_for_status()
+            logger.info("Message published successfully.")
+            return response.json()
+        except requests.exceptions.HTTPError as e:
+            logger.error(f"Error publishing message: {e.response.text}")
+            raise e
         except Exception as e:
-            print(f"Error adding note: {e}")
+            logger.error(f"Unexpected error publishing message: {e}")
             raise e
 
 hubspot_service = HubSpotService()

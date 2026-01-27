@@ -23,69 +23,79 @@ async def landbot_inbound(payload: LandbotMessage, background_tasks: BackgroundT
     logger.info(f"Received Landbot payload: {payload.dict()}")
     
     customer_id = payload.customer.id
+    customer_name = payload.customer.name
     message_text = payload.message
     
-    # Logic: Check if there is an active ticket
-    active_ticket_id = hubspot_service.find_active_ticket(customer_id)
+    # 1. Ensure Contact Exists in CRM (Best Practice)
+    # This helps HubSpot eventually link the conversation to a real contact
+    # if the system logic allows specific matching.
+    contact_id = None
+    if payload.customer.phone:
+        try:
+            contact_id = hubspot_service.get_or_create_contact(customer_name, payload.customer.phone)
+            logger.info(f"Resolved Contact ID: {contact_id}")
+        except Exception as e:
+            logger.error(f"Failed to resolve contact: {e}")
+
+    # 2. Publish Message to Custom Channel
+    # We use customer_id as the integrationThreadId
+    background_tasks.add_task(
+        hubspot_service.publish_message_to_channel,
+        customer_id,
+        message_text,
+        sender_name=customer_name
+    )
     
-    if active_ticket_id:
-        logger.info(f"Found active ticket {active_ticket_id} for user {customer_id}")
-        # Add note to existing ticket
-        # Run in background to reply fast to Landbot
-        background_tasks.add_task(
-            hubspot_service.add_note_to_ticket, 
-            active_ticket_id, 
-            message_text, 
-            "Inbound"
-        )
-        return {"status": "merged", "ticket_id": active_ticket_id}
-    else:
-        logger.info(f"No active ticket for user {customer_id}. Creating new one.")
-        # Create new ticket
-        new_ticket_id = hubspot_service.create_ticket(
-            payload.customer.dict(), 
-            message_text
-        )
-        # Also add the first message as a note for consistency
-        background_tasks.add_task(
-            hubspot_service.add_note_to_ticket,
-            new_ticket_id,
-            message_text,
-            "Inbound"
-        )
-        return {"status": "created", "ticket_id": new_ticket_id}
+    return {"status": "published", "thread_id": str(customer_id)}
 
 @app.post("/webhook/hubspot-outbound")
 async def hubspot_outbound(payload: HubSpotWebhookPayload, background_tasks: BackgroundTasks):
     """
-    Handle outgoing messages from HubSpot Agent (via Workflow).
+    Handle outgoing messages from HubSpot Custom Channel.
     """
     logger.info(f"Received HubSpot payload: {payload.dict()}")
     
-    # Logic: Send message to Landbot
+    if payload.type == "OUTGOING_CHANNEL_MESSAGE_CREATED" or payload.type == "MESSAGE": 
+        # "MESSAGE" type might appear in some contexts, but usually "OUTGOING_CHANNEL_MESSAGE_CREATED" for webhooks.
+        pass
+    else:
+        # Ignore other events (like status updates, typing indicators if subscribed)
+        return {"status": "ignored", "type": payload.type}
+
+    # Extract Landbot ID from Thread ID
+    if not payload.channelIntegrationThreadIds:
+        logger.warning("No channelIntegrationThreadIds found in payload.")
+        # Fallback: check nested message integrationThreadId if available (depends on schema version)
+        # But per our model, we look at the top level list.
+        return {"status": "ignored", "reason": "No thread ID"}
+
     try:
-        # Convert landbot_id to int as required by Landbot API
-        landbot_id_int = int(payload.landbot_id)
+        # Assuming the first thread ID is the Landbot Customer ID
+        landbot_id_str = payload.channelIntegrationThreadIds[0]
+        landbot_id = int(landbot_id_str)
         
+        message_text = payload.message.text
+        # Optional: Handle rich text or attachments if needed in future
+        
+        if not message_text:
+            logger.warning("Empty message text received.")
+            return {"status": "ignored", "reason": "Empty text"}
+
+        # Send to Landbot
         background_tasks.add_task(
             landbot_service.send_text_message,
-            landbot_id_int,
-            payload.reply_text
-        )
-        
-        # Optional: Add the agent reply as a note to the ticket for record keeping (if HubSpot doesn't do it automatically)
-        background_tasks.add_task(
-            hubspot_service.add_note_to_ticket,
-            str(payload.ticket_id),
-            payload.reply_text,
-            "Outbound"
+            landbot_id,
+            message_text
         )
         
         return {"status": "sent"}
         
     except ValueError:
-        logger.error(f"Invalid Landbot ID: {payload.landbot_id}")
-        raise HTTPException(status_code=400, detail="Invalid Landbot ID")
+        logger.error(f"Invalid Landbot ID format in thread ID: {payload.channelIntegrationThreadIds}")
+        raise HTTPException(status_code=400, detail="Invalid Thread ID format")
+    except Exception as e:
+        logger.error(f"Error processing outbound webhook: {e}")
+        raise HTTPException(status_code=500, detail="Internal Server Error")
 
 if __name__ == "__main__":
     import uvicorn

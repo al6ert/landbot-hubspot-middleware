@@ -60,6 +60,15 @@ Añade un bloque **Webhook** en el punto del flujo donde quieras que la conversa
 
 * **Documentación Oficial:** [Webhooks Block Overview](https://knowledgecenter.landbot.io/article/1qlnbhwgsj-webhooks)
 
+### Paso 2.3: Configurar el Bucle de Chat (Chat Loop)
+
+Para que el usuario pueda seguir escribiendo mensajes y recibirlos en HubSpot, debes crear un **bucle**:
+
+1. Después del bloque **Webhook**, conecta la salida ("Success") **de vuelta a la entrada** del bloque de pregunta ("Ask a question") o "Messages".
+2. **Recomendación**: Utiliza un bloque "Ask a question" genérico (sin un texto largo de pregunta, quizás solo un espacio o "...") para capturar la siguiente respuesta del usuario.
+3. Esto crea el flujo: `Pregunta -> Respuesta Usuario -> Webhook -> Pregunta`.
+4. Las respuestas del agente desde HubSpot aparecerán en el chat automáticamente gracias a la API, sin interrumpir este bucle (aunque visualmente se insertarán en el chat).
+
 ---
 
 ## 3. Envío de Mensajes desde el Middleware (Outbound)
