@@ -48,6 +48,27 @@ API Docs disponibles en: `http://localhost:8000/docs`
 
 ### 2. HubSpot Outbound (Agent Reply)
 
-* **URL Local:** `POST http://localhost:8000/webhook/hubspot-outbound`
-* **Uso:** Configurar en el Workflow de HubSpot.
-* **Trigger del Workflow:** Cuando `whatsapp_reply_body` ("Propiedad Personalizada") cambia.
+* **URL:** `POST https://tu-servidor.com/webhook/hubspot-outbound`
+* **Uso:** Recibe notificaciones automáticas cuando un agente responde en la bandeja de entrada de HubSpot (Custom Channel).
+* **Configuración:** Se configura automáticamente mediante los scripts de registro.
+
+## 🛠 Desarrollo Local y Troubleshooting
+
+### Actualización de Webhooks (Localtunnel)
+
+Si estás usando un túnel local (`localtunnel`, `ngrok`), la URL cambiará cada vez que reinicies el proceso. Para que los mensajes sigan llegando tanto a HubSpot como a Landbot, debes actualizar la URL en ambos sitios:
+
+1. **En HubSpot:** Ejecuta el script de actualización rápida:
+
+    ```bash
+    python3 src/scripts/update_webhook.py https://TU-NUEVA-URL.loca.lt/webhook/hubspot-outbound
+    ```
+
+2. **En Landbot:** Ve al bloque **Webhook** en tu flujo y actualiza la URL a:
+    `https://TU-NUEVA-URL.loca.lt/webhook/landbot-inbound`
+
+### Scripts de Utilidad
+
+* `python src/scripts/oauth_setup.py`: Realiza el handshake inicial de OAuth.
+* `python src/scripts/register_channel.py`: Registra el canal personalizado en HubSpot.
+* `python src/scripts/update_webhook.py`: Actualiza la URL del webhook en el canal de HubSpot sin tener que borrar y recrear todo el canal.

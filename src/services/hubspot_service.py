@@ -91,7 +91,7 @@ class HubSpotService:
             logger.error(f"Error in get_or_create_contact: {e}")
             raise e
 
-    def publish_message_to_channel(self, landbot_id: int, message_text: str, sender_name: str = "Visitor"):
+    def publish_message_to_channel(self, landbot_id: int, message_text: str, sender_name: str = "Visitor", phone: str = None):
         """
         Publish a message to the HubSpot Custom Channel.
         Identifies the conversation thread by landbot_id.
@@ -105,6 +105,24 @@ class HubSpotService:
             "Content-Type": "application/json"
         }
         
+        # Prepare Sender info
+        # If we have a phone number, use HS_PHONE_NUMBER for better CRM association
+        delivery_identifier = {
+            "type": "CHANNEL_SPECIFIC_OPAQUE_ID",
+            "value": str(landbot_id)
+        }
+        
+        if phone:
+            # Basic E.164 formatting check
+            clean_phone = phone.strip()
+            if not clean_phone.startswith('+'):
+                clean_phone = f"+{clean_phone}"
+            
+            delivery_identifier = {
+                "type": "HS_PHONE_NUMBER",
+                "value": clean_phone
+            }
+
         # Payload for 'INCOMING' message (Visitor -> HubSpot)
         payload = {
             "text": message_text,
@@ -114,10 +132,7 @@ class HubSpotService:
             "senders": [
                 {
                     "name": sender_name,
-                    "deliveryIdentifier": {
-                        "type": "CHANNEL_SPECIFIC_OPAQUE_ID",
-                        "value": str(landbot_id)
-                    }
+                    "deliveryIdentifier": delivery_identifier
                 }
             ]
         }

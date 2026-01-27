@@ -97,6 +97,14 @@ Una vez autenticado, registra el canal en tu cuenta de HubSpot.
     HUBSPOT_CHANNEL_ACCOUNT_ID=...
     ```
 
+### 3.1. Actualizar la URL del Webhook
+
+Si tu URL pública cambia (por ejemplo, al reiniciar `localtunnel`), no necesitas volver a registrar todo el canal. Usa el script de actualización:
+
+```bash
+python src/scripts/update_webhook.py https://tu-nueva-url.loca.lt/webhook/hubspot-outbound
+```
+
 ---
 
 ## 4. Funcionamiento Automático
