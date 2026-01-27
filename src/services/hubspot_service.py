@@ -106,7 +106,8 @@ class HubSpotService:
         }
         
         # Prepare Sender info
-        # If we have a phone number, use HS_PHONE_NUMBER for better CRM association
+        # We MUST use the landbot_id as the delivery identifier so that 
+        # HubSpot's outbound webhooks return it to us, allowing us to route back to Landbot.
         delivery_identifier = {
             "type": "CHANNEL_SPECIFIC_OPAQUE_ID",
             "value": str(landbot_id)
@@ -116,6 +117,7 @@ class HubSpotService:
         payload = {
             "text": message_text,
             "channelAccountId": settings.HUBSPOT_CHANNEL_ACCOUNT_ID,
+            "integrationThreadId": str(landbot_id),
             "messageDirection": "INCOMING",
             "senders": [
                 {
@@ -135,10 +137,59 @@ class HubSpotService:
             logger.info("Message published successfully.")
             return response.json()
         except requests.exceptions.HTTPError as e:
-            # Already logged above if status >= 400
             raise e
         except Exception as e:
             logger.error(f"Unexpected error publishing message: {e}")
             raise e
+
+    def get_thread_associated_ticket(self, thread_id: str) -> Optional[str]:
+        """
+        Get the Ticket ID associated with a conversation thread.
+        """
+        token = self.get_token()
+        url = f"https://api.hubapi.com/conversations/v3/conversations/threads/{thread_id}"
+        params = {"association": "ticket"}
+        headers = {"Authorization": f"Bearer {token}"}
+        
+        logger.info(f"Checking for ticket associated with thread {thread_id}...")
+        try:
+            response = requests.get(url, headers=headers, params=params)
+            response.raise_for_status()
+            data = response.json()
+            
+            # The structure is usually threadAssociations: { associatedTicketId: "..." }
+            associations = data.get("threadAssociations", {})
+            ticket_id = associations.get("associatedTicketId")
+            if ticket_id:
+                logger.info(f"Found associated ticket: {ticket_id}")
+            else:
+                logger.info(f"No ticket associated with thread {thread_id} yet. Thread data: {json.dumps(data)}")
+            return ticket_id
+        except Exception as e:
+            logger.error(f"Error fetching thread ticket: {e}")
+            return None
+
+    def associate_contact_with_ticket(self, contact_id: str, ticket_id: str):
+        """
+        Explicitly associate a contact with a ticket.
+        """
+        token = self.get_token()
+        url = f"https://api.hubapi.com/crm/v3/objects/contacts/{contact_id}/associations/tickets/{ticket_id}/contact_to_ticket"
+        headers = {
+            "Authorization": f"Bearer {token}",
+            "Content-Type": "application/json"
+        }
+        
+        try:
+            # PUT endpoint for association v3
+            response = requests.put(url, headers=headers)
+            if response.status_code >= 400:
+                logger.error(f"❌ Association Error ({response.status_code}): {response.text}")
+            response.raise_for_status()
+            logger.info(f"Successfully associated contact {contact_id} with ticket {ticket_id}")
+            return True
+        except Exception as e:
+            logger.error(f"Failed to associate contact with ticket: {e}")
+            return False
 
 hubspot_service = HubSpotService()

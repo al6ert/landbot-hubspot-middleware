@@ -29,3 +29,160 @@ Ignoring message from sys
 2026-01-27 20:13:14,039 - src.services.hubspot_service - INFO - Access Token refreshed successfully.
 2026-01-27 20:13:14,217 - src.services.hubspot_service - INFO - Publishing message to HubSpot: {"text": "Verify final fix", "channelAccountId": "2589436607", "messageDirection": "INCOMING", "senders": [{"name": "Usuario", "deliveryIdentifier": {"type": "CHANNEL_SPECIFIC_OPAQUE_ID", "value": "507039831"}}]}
 2026-01-27 20:13:14,440 - src.services.hubspot_service - INFO - Message published successfully.
+2026-01-27 20:17:17,516 - src.main - INFO - Processing message for HubSpot: Usuario Test (507039831): Testing ticket association
+2026-01-27 20:17:17,517 - src.services.hubspot_service - INFO - Refreshing HubSpot Access Token...
+2026-01-27 20:17:17,857 - src.services.hubspot_service - INFO - Access Token refreshed successfully.
+2026-01-27 20:17:18,575 - src.services.hubspot_service - INFO - Publishing message to HubSpot: {"text": "Testing ticket association", "channelAccountId": "2589436607", "messageDirection": "INCOMING", "senders": [{"name": "Usuario Test", "deliveryIdentifier": {"type": "HS_PHONE_NUMBER", "value": "+34611111111"}}]}
+2026-01-27 20:17:18,985 - src.services.hubspot_service - INFO - Message published successfully.
+2026-01-27 20:17:56,877 - src.main - INFO - Processing message for HubSpot: Usuario Test 2 (507039831): Testing ticket association 2
+2026-01-27 20:17:56,877 - src.services.hubspot_service - INFO - Refreshing HubSpot Access Token...
+2026-01-27 20:17:57,283 - src.services.hubspot_service - INFO - Access Token refreshed successfully.
+2026-01-27 20:17:57,461 - src.services.hubspot_service - INFO - Publishing message to HubSpot: {"text": "Testing ticket association 2", "channelAccountId": "2589436607", "messageDirection": "INCOMING", "senders": [{"name": "Usuario Test 2", "deliveryIdentifier": {"type": "HS_PHONE_NUMBER", "value": "+34611111111"}}]}
+2026-01-27 20:17:57,705 - src.services.hubspot_service - INFO - Message published successfully.
+2026-01-27 20:18:13,973 - src.main - INFO - Processing message for HubSpot: Usuario Test 3 (507039831): Testing ticket association 3
+2026-01-27 20:18:13,974 - src.services.hubspot_service - INFO - Refreshing HubSpot Access Token...
+2026-01-27 20:18:14,382 - src.services.hubspot_service - INFO - Access Token refreshed successfully.
+2026-01-27 20:18:14,573 - src.services.hubspot_service - INFO - Publishing message to HubSpot: {"text": "Testing ticket association 3", "channelAccountId": "2589436607", "messageDirection": "INCOMING", "senders": [{"name": "Usuario Test 3", "deliveryIdentifier": {"type": "HS_PHONE_NUMBER", "value": "+34611111111"}}]}
+2026-01-27 20:18:14,817 - src.services.hubspot_service - INFO - Message published successfully.
+2026-01-27 20:18:14,818 - src.main - INFO - Thread ID received: None, Contact ID: 668362667230
+2026-01-27 20:18:14,819 - src.main - WARNING - No threadId in HubSpot response: {'id': '8602f528-cda2-44e3-84a6-50931fbf5125', 'conversationsThreadId': '17380832448', 'createdAt': '2026-01-27T19:18:14.705Z', 'updatedAt': '2026-01-27T19:18:14.797Z', 'createdBy': 'V-668362667230', 'client': {'clientType': 'SYSTEM'}, 'senders': [{'actorId': 'V-668362667230', 'name': 'Usuario Test 3', 'deliveryIdentifier': {'type': 'HS_PHONE_NUMBER', 'value': '+34611111111'}}], 'recipients': [], 'archived': False, 'text': 'Testing ticket association 3', 'attachments': [], 'truncationStatus': 'NOT_TRUNCATED', 'status': {'statusType': 'RECEIVED'}, 'direction': 'INCOMING', 'channelId': '2300310', 'channelAccountId': '2589436607', 'type': 'MESSAGE'}
+2026-01-27 20:18:53,836 - src.main - INFO - Processing message for HubSpot: Usuario Test Final (507039831): Testing ticket association final
+2026-01-27 20:18:53,836 - src.services.hubspot_service - INFO - Refreshing HubSpot Access Token...
+2026-01-27 20:18:54,216 - src.services.hubspot_service - INFO - Access Token refreshed successfully.
+2026-01-27 20:18:54,422 - src.services.hubspot_service - INFO - Publishing message to HubSpot: {"text": "Testing ticket association final", "channelAccountId": "2589436607", "messageDirection": "INCOMING", "senders": [{"name": "Usuario Test Final", "deliveryIdentifier": {"type": "HS_PHONE_NUMBER", "value": "+34611111111"}}]}
+2026-01-27 20:18:54,650 - src.services.hubspot_service - INFO - Message published successfully.
+2026-01-27 20:18:54,650 - src.main - INFO - Thread ID received: 17380832448, Contact ID: 668362667230
+2026-01-27 20:18:54,650 - src.main - INFO - Waiting for HubSpot to create the ticket...
+2026-01-27 20:18:59,651 - src.services.hubspot_service - INFO - Checking for ticket associated with thread 17380832448...
+2026-01-27 20:18:59,811 - src.services.hubspot_service - INFO - Found associated ticket: 368009923781
+2026-01-27 20:19:00,157 - src.services.hubspot_service - INFO - Successfully associated contact 668362667230 with ticket 368009923781
+2026-01-27 20:20:49,933 - src.main - INFO - Processing message for HubSpot: Usuario (507039831): Start testing your agent!
+2026-01-27 20:20:49,934 - src.services.hubspot_service - INFO - Refreshing HubSpot Access Token...
+2026-01-27 20:20:50,279 - src.services.hubspot_service - INFO - Access Token refreshed successfully.
+2026-01-27 20:20:50,955 - src.services.hubspot_service - INFO - Publishing message to HubSpot: {"text": "Start testing your agent!", "channelAccountId": "2589436607", "messageDirection": "INCOMING", "senders": [{"name": "Usuario", "deliveryIdentifier": {"type": "HS_PHONE_NUMBER", "value": "+34677450382"}}]}
+2026-01-27 20:20:51,330 - src.services.hubspot_service - INFO - Message published successfully.
+2026-01-27 20:20:51,332 - src.main - INFO - Thread ID received: 17381699772, Contact ID: 668289750212
+2026-01-27 20:20:51,333 - src.main - INFO - Waiting for HubSpot to create the ticket...
+2026-01-27 20:20:56,334 - src.services.hubspot_service - INFO - Checking for ticket associated with thread 17381699772...
+2026-01-27 20:20:56,512 - src.services.hubspot_service - INFO - Found associated ticket: 367928583389
+2026-01-27 20:20:56,735 - src.services.hubspot_service - INFO - Successfully associated contact 668289750212 with ticket 367928583389
+2026-01-27 20:21:39,086 - src.main - INFO - Ignoring message from sys
+2026-01-27 20:22:00,894 - src.main - INFO - Ignoring message from customer 507039831: No agent assigned (Bot mode)
+2026-01-27 20:22:03,351 - src.main - INFO - Ignoring message from bot
+2026-01-27 20:22:05,144 - src.main - INFO - Ignoring message from bot
+2026-01-27 20:22:13,690 - src.main - INFO - Ignoring message from customer 507039831: No agent assigned (Bot mode)
+2026-01-27 20:22:16,151 - src.main - INFO - Ignoring message from bot
+2026-01-27 20:22:21,525 - src.main - INFO - Ignoring message from sys
+2026-01-27 20:22:23,422 - src.main - INFO - Processing message for HubSpot: Usuario (507039831): Si
+2026-01-27 20:22:23,983 - src.services.hubspot_service - INFO - Publishing message to HubSpot: {"text": "Si", "channelAccountId": "2589436607", "messageDirection": "INCOMING", "senders": [{"name": "Usuario", "deliveryIdentifier": {"type": "HS_PHONE_NUMBER", "value": "+34677450382"}}]}
+2026-01-27 20:22:24,346 - src.services.hubspot_service - INFO - Message published successfully.
+2026-01-27 20:22:24,347 - src.main - INFO - Thread ID received: 17380671712, Contact ID: 668357494993
+2026-01-27 20:22:24,347 - src.main - INFO - Waiting for HubSpot to create the ticket...
+2026-01-27 20:22:29,348 - src.services.hubspot_service - INFO - Checking for ticket associated with thread 17380671712...
+2026-01-27 20:22:29,538 - src.services.hubspot_service - INFO - Found associated ticket: 368103865581
+2026-01-27 20:22:29,767 - src.services.hubspot_service - INFO - Successfully associated contact 668357494993 with ticket 368103865581
+2026-01-27 20:23:00,699 - src.main - INFO - Received HubSpot payload: {'type': 'OUTGOING_CHANNEL_MESSAGE_CREATED', 'channelId': '2300310', 'message': {'text': 'oka, lo pillo.', 'richText': '<div style="" dir="auto" data-top-level="true"><p style="margin:0;">oka, lo pillo.</p></div>'}, 'channelIntegrationThreadIds': ['928d817b11179c9f0af16b9b2d1b5cc6']}
+2026-01-27 20:23:00,699 - src.main - ERROR - Invalid Landbot ID format in thread ID: ['928d817b11179c9f0af16b9b2d1b5cc6']
+2026-01-27 20:24:35,449 - src.main - INFO - Received HubSpot payload: {'type': 'OUTGOING_CHANNEL_MESSAGE_CREATED', 'channelId': '2300310', 'message': {'text': 'oka, lo pillo.', 'richText': None}, 'channelIntegrationThreadIds': ['928d817b11179c9f0af16b9b2d1b5cc6'], 'recipients': [{'name': None, 'deliveryIdentifier': {'type': 'CHANNEL_SPECIFIC_OPAQUE_ID', 'value': '507039831'}, 'actorId': None}], 'senders': []}
+2026-01-27 20:24:35,449 - src.main - INFO - Found Landbot ID in recipients: 507039831
+2026-01-27 20:24:36,852 - src.main - INFO - Ignoring message from agent
+2026-01-27 20:24:40,088 - src.main - INFO - Processing message for HubSpot: Usuario Outbound Fix (507039831): Testing inbound after outbound fix
+2026-01-27 20:24:40,089 - src.services.hubspot_service - INFO - Refreshing HubSpot Access Token...
+2026-01-27 20:24:40,537 - src.services.hubspot_service - INFO - Access Token refreshed successfully.
+2026-01-27 20:24:41,154 - src.services.hubspot_service - INFO - Publishing message to HubSpot: {"text": "Testing inbound after outbound fix", "channelAccountId": "2589436607", "messageDirection": "INCOMING", "senders": [{"name": "Usuario Outbound Fix", "deliveryIdentifier": {"type": "CHANNEL_SPECIFIC_OPAQUE_ID", "value": "507039831"}}]}
+2026-01-27 20:24:41,453 - src.services.hubspot_service - INFO - Message published successfully.
+2026-01-27 20:24:41,454 - src.main - INFO - Thread ID received: 17381813490, Contact ID: 668095667447
+2026-01-27 20:24:41,454 - src.main - INFO - Waiting for HubSpot to create the ticket...
+2026-01-27 20:24:46,455 - src.services.hubspot_service - INFO - Checking for ticket associated with thread 17381813490...
+2026-01-27 20:24:46,630 - src.services.hubspot_service - INFO - Found associated ticket: 368040868050
+2026-01-27 20:24:46,919 - src.services.hubspot_service - INFO - Successfully associated contact 668095667447 with ticket 368040868050
+2026-01-27 20:25:57,037 - src.main - INFO - Ignoring message from sys
+2026-01-27 20:26:04,608 - src.main - INFO - Ignoring message from customer 507039831: No agent assigned (Bot mode)
+2026-01-27 20:26:05,530 - src.main - INFO - Ignoring message from bot
+2026-01-27 20:26:07,475 - src.main - INFO - Ignoring message from bot
+2026-01-27 20:26:11,973 - src.main - INFO - Ignoring message from customer 507039831: No agent assigned (Bot mode)
+2026-01-27 20:26:14,336 - src.main - INFO - Ignoring message from bot
+2026-01-27 20:26:14,954 - src.main - INFO - Ignoring message from sys
+2026-01-27 20:26:22,734 - src.main - INFO - Processing message for HubSpot: Usuario (507039831): Si
+2026-01-27 20:26:22,734 - src.services.hubspot_service - INFO - Refreshing HubSpot Access Token...
+2026-01-27 20:26:23,039 - src.services.hubspot_service - INFO - Access Token refreshed successfully.
+2026-01-27 20:26:23,692 - src.services.hubspot_service - INFO - Publishing message to HubSpot: {"text": "Si", "channelAccountId": "2589436607", "messageDirection": "INCOMING", "senders": [{"name": "Usuario", "deliveryIdentifier": {"type": "CHANNEL_SPECIFIC_OPAQUE_ID", "value": "507039831"}}]}
+2026-01-27 20:26:24,084 - src.services.hubspot_service - INFO - Message published successfully.
+2026-01-27 20:26:24,084 - src.main - INFO - Thread ID received: 17380954305, Contact ID: 667888958663
+2026-01-27 20:26:24,084 - src.main - INFO - Waiting for HubSpot to create the ticket...
+2026-01-27 20:26:29,085 - src.services.hubspot_service - INFO - Checking for ticket associated with thread 17380954305...
+2026-01-27 20:26:29,263 - src.services.hubspot_service - INFO - Found associated ticket: 368042675430
+2026-01-27 20:26:29,519 - src.services.hubspot_service - INFO - Successfully associated contact 667888958663 with ticket 368042675430
+2026-01-27 20:27:02,363 - src.main - INFO - Received HubSpot payload: {'type': 'OUTGOING_CHANNEL_MESSAGE_CREATED', 'channelId': '2300310', 'message': {'text': 'lo rcibes?', 'richText': '<div style="" dir="auto" data-top-level="true"><p style="margin:0;">lo rcibes?</p></div>'}, 'channelIntegrationThreadIds': ['fc744dbb9c066e37d4abf3c565e648c6'], 'recipients': [], 'senders': []}
+2026-01-27 20:27:02,363 - src.main - WARNING - Could not identify Landbot Customer ID from payload. Recipients: []
+2026-01-27 20:29:12,835 - src.main - INFO - Processing message for HubSpot: Usuario Thread Fix (507039831): Testing integrationThreadId support
+2026-01-27 20:29:12,835 - src.services.hubspot_service - INFO - Refreshing HubSpot Access Token...
+2026-01-27 20:29:13,160 - src.services.hubspot_service - INFO - Access Token refreshed successfully.
+2026-01-27 20:29:13,323 - src.services.hubspot_service - INFO - Publishing message to HubSpot: {"text": "Testing integrationThreadId support", "channelAccountId": "2589436607", "integrationThreadId": "507039831", "messageDirection": "INCOMING", "senders": [{"name": "Usuario Thread Fix", "deliveryIdentifier": {"type": "CHANNEL_SPECIFIC_OPAQUE_ID", "value": "507039831"}}]}
+2026-01-27 20:29:13,584 - src.services.hubspot_service - INFO - Message published successfully.
+2026-01-27 20:29:13,585 - src.main - INFO - Thread ID received: 17380956364, Contact ID: 668095667447
+2026-01-27 20:29:13,585 - src.main - INFO - Waiting for HubSpot to create the ticket...
+2026-01-27 20:29:18,586 - src.services.hubspot_service - INFO - Checking for ticket associated with thread 17380956364...
+2026-01-27 20:29:18,763 - src.services.hubspot_service - INFO - Found associated ticket: 367479315658
+2026-01-27 20:29:19,023 - src.services.hubspot_service - INFO - Successfully associated contact 668095667447 with ticket 367479315658
+2026-01-27 20:29:19,804 - src.main - INFO - Received HubSpot payload: {'type': 'OUTGOING_CHANNEL_MESSAGE_CREATED', 'channelId': '2300310', 'message': {'text': 'Reply with fixed threading!', 'richText': None}, 'channelIntegrationThreadIds': ['507039831'], 'recipients': [], 'senders': []}
+2026-01-27 20:29:19,804 - src.main - INFO - Found Landbot ID in thread IDs: 507039831
+2026-01-27 20:29:21,093 - src.main - INFO - Ignoring message from agent
+2026-01-27 20:29:53,825 - src.main - INFO - Received HubSpot payload: {'type': 'OUTGOING_CHANNEL_MESSAGE_CREATED', 'channelId': '2300310', 'message': {'text': 'Checking Landbot send logs!', 'richText': None}, 'channelIntegrationThreadIds': ['507039831'], 'recipients': [], 'senders': []}
+2026-01-27 20:29:53,825 - src.main - INFO - Found Landbot ID in thread IDs: 507039831
+2026-01-27 20:29:53,828 - src.services.landbot_service - INFO - Sending message to Landbot (507039831): Checking Landbot send logs!
+2026-01-27 20:29:54,809 - src.services.landbot_service - INFO - Message sent to Landbot successfully.
+2026-01-27 20:29:55,137 - src.main - INFO - Ignoring message from agent
+2026-01-27 20:31:38,297 - src.main - INFO - Ignoring message from sys
+2026-01-27 20:31:43,911 - src.main - INFO - Ignoring message from customer 507039831: No agent assigned (Bot mode)
+2026-01-27 20:31:46,014 - src.main - INFO - Ignoring message from bot
+2026-01-27 20:31:48,328 - src.main - INFO - Ignoring message from bot
+2026-01-27 20:31:52,567 - src.main - INFO - Ignoring message from customer 507039831: No agent assigned (Bot mode)
+2026-01-27 20:31:54,923 - src.main - INFO - Ignoring message from bot
+2026-01-27 20:31:57,485 - src.main - INFO - Processing message for HubSpot: Usuario (507039831): Si
+2026-01-27 20:31:57,486 - src.services.hubspot_service - INFO - Refreshing HubSpot Access Token...
+2026-01-27 20:31:57,781 - src.services.hubspot_service - INFO - Access Token refreshed successfully.
+2026-01-27 20:31:58,508 - src.services.hubspot_service - INFO - Publishing message to HubSpot: {"text": "Si", "channelAccountId": "2589436607", "integrationThreadId": "507039831", "messageDirection": "INCOMING", "senders": [{"name": "Usuario", "deliveryIdentifier": {"type": "CHANNEL_SPECIFIC_OPAQUE_ID", "value": "507039831"}}]}
+2026-01-27 20:31:58,844 - src.services.hubspot_service - INFO - Message published successfully.
+2026-01-27 20:31:58,845 - src.main - INFO - Thread ID received: 17380677837, Contact ID: 667865029848
+2026-01-27 20:31:58,845 - src.main - INFO - Waiting for HubSpot to create the ticket...
+2026-01-27 20:32:02,939 - src.main - INFO - Ignoring message from sys
+2026-01-27 20:32:03,846 - src.services.hubspot_service - INFO - Checking for ticket associated with thread 17380677837...
+2026-01-27 20:32:03,996 - src.services.hubspot_service - INFO - Found associated ticket: 367585983699
+2026-01-27 20:32:04,296 - src.services.hubspot_service - INFO - Successfully associated contact 667865029848 with ticket 367585983699
+2026-01-27 20:32:17,656 - src.main - INFO - Received HubSpot payload: {'type': 'OUTGOING_CHANNEL_MESSAGE_CREATED', 'channelId': '2300310', 'message': {'text': 'me ves?', 'richText': '<div style="" dir="auto" data-top-level="true"><p style="margin:0;">me ves?</p><p style="margin:0;"><br class="hs-trailingbreak"></p></div>'}, 'channelIntegrationThreadIds': ['507039831'], 'recipients': [], 'senders': []}
+2026-01-27 20:32:17,656 - src.main - INFO - Found Landbot ID in thread IDs: 507039831
+2026-01-27 20:32:17,656 - src.services.landbot_service - INFO - Sending message to Landbot (507039831): me ves?
+2026-01-27 20:32:18,782 - src.services.landbot_service - INFO - Message sent to Landbot successfully.
+2026-01-27 20:32:19,032 - src.main - INFO - Ignoring message from agent
+2026-01-27 20:32:29,332 - src.main - INFO - Processing message for HubSpot: Usuario (507039831): Te veo
+2026-01-27 20:32:29,536 - src.services.hubspot_service - INFO - Publishing message to HubSpot: {"text": "Te veo", "channelAccountId": "2589436607", "integrationThreadId": "507039831", "messageDirection": "INCOMING", "senders": [{"name": "Usuario", "deliveryIdentifier": {"type": "CHANNEL_SPECIFIC_OPAQUE_ID", "value": "507039831"}}]}
+2026-01-27 20:32:29,764 - src.services.hubspot_service - INFO - Message published successfully.
+2026-01-27 20:32:29,765 - src.main - INFO - Thread ID received: 17380677837, Contact ID: 667865029848
+2026-01-27 20:32:29,765 - src.main - INFO - Waiting for HubSpot to create the ticket...
+2026-01-27 20:32:34,765 - src.services.hubspot_service - INFO - Checking for ticket associated with thread 17380677837...
+2026-01-27 20:32:35,207 - src.services.hubspot_service - INFO - Found associated ticket: 367585983699
+2026-01-27 20:32:35,613 - src.services.hubspot_service - INFO - Successfully associated contact 667865029848 with ticket 367585983699
+2026-01-27 20:33:13,977 - src.main - INFO - Ignoring message from sys
+2026-01-27 20:33:24,114 - src.main - INFO - Ignoring message from customer 507039831: No agent assigned (Bot mode)
+2026-01-27 20:33:26,161 - src.main - INFO - Ignoring message from bot
+2026-01-27 20:33:28,212 - src.main - INFO - Ignoring message from bot
+2026-01-27 20:33:31,386 - src.main - INFO - Ignoring message from customer 507039831: No agent assigned (Bot mode)
+2026-01-27 20:33:34,353 - src.main - INFO - Ignoring message from bot
+2026-01-27 20:33:40,089 - src.main - INFO - Ignoring message from sys
+2026-01-27 20:33:45,472 - src.main - INFO - Processing message for HubSpot: Usuario (507039831): Otra vez
+2026-01-27 20:33:45,645 - src.services.hubspot_service - INFO - Publishing message to HubSpot: {"text": "Otra vez", "channelAccountId": "2589436607", "integrationThreadId": "507039831", "messageDirection": "INCOMING", "senders": [{"name": "Usuario", "deliveryIdentifier": {"type": "CHANNEL_SPECIFIC_OPAQUE_ID", "value": "507039831"}}]}
+2026-01-27 20:33:45,873 - src.services.hubspot_service - INFO - Message published successfully.
+2026-01-27 20:33:45,874 - src.main - INFO - Thread ID received: 17380677837, Contact ID: 667865029848
+2026-01-27 20:33:45,874 - src.main - INFO - Waiting for HubSpot to create the ticket...
+2026-01-27 20:33:50,875 - src.services.hubspot_service - INFO - Checking for ticket associated with thread 17380677837...
+2026-01-27 20:33:51,116 - src.services.hubspot_service - INFO - Found associated ticket: 367585983699
+2026-01-27 20:33:51,366 - src.services.hubspot_service - INFO - Successfully associated contact 667865029848 with ticket 367585983699
+2026-01-27 20:34:19,002 - src.main - INFO - Processing message for HubSpot: Usuario (507039831): Y si abro?
+2026-01-27 20:34:19,189 - src.services.hubspot_service - INFO - Publishing message to HubSpot: {"text": "Y si abro?", "channelAccountId": "2589436607", "integrationThreadId": "507039831", "messageDirection": "INCOMING", "senders": [{"name": "Usuario", "deliveryIdentifier": {"type": "CHANNEL_SPECIFIC_OPAQUE_ID", "value": "507039831"}}]}
+2026-01-27 20:34:19,420 - src.services.hubspot_service - INFO - Message published successfully.
+2026-01-27 20:34:19,421 - src.main - INFO - Thread ID received: 17380677837, Contact ID: 667865029848
+2026-01-27 20:34:19,421 - src.main - INFO - Waiting for HubSpot to create the ticket...
+2026-01-27 20:34:24,422 - src.services.hubspot_service - INFO - Checking for ticket associated with thread 17380677837...
+2026-01-27 20:34:24,574 - src.services.hubspot_service - INFO - Found associated ticket: 367585983699
+2026-01-27 20:34:24,820 - src.services.hubspot_service - INFO - Successfully associated contact 667865029848 with ticket 367585983699

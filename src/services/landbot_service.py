@@ -1,5 +1,8 @@
 import requests
+import logging
 from src.config import settings
+
+logger = logging.getLogger(__name__)
 
 class LandbotService:
     def __init__(self):
@@ -19,18 +22,20 @@ class LandbotService:
         payload = {
             "message": message,
             "extra": {
-                "sender": "agent" # Optional: to mark it differently in Landbot if supported
+                "sender": "agent"
             }
         }
         
+        logger.info(f"Sending message to Landbot ({landbot_id}): {message}")
         try:
             response = requests.post(url, json=payload, headers=self.headers)
+            if response.status_code >= 400:
+                logger.error(f"❌ Landbot API Error ({response.status_code}): {response.text}")
             response.raise_for_status()
+            logger.info(f"Message sent to Landbot successfully.")
             return response.json()
         except requests.exceptions.RequestException as e:
-            print(f"Error sending message to Landbot: {e}")
-            if e.response:
-                print(f"Response: {e.response.text}")
+            logger.error(f"Failed to send message to Landbot: {e}")
             raise e
 
 landbot_service = LandbotService()
