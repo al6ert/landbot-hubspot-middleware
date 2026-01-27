@@ -27,8 +27,21 @@ Middleware de integración bidireccional "No-DB", utilizando HubSpot Tickets com
     > * Para Landbot: Consulta la [Guía de Landbot](docs/LANDBOT_GUIDE.md).
 
     ```ini
-    HUBSPOT_ACCESS_TOKEN=pat-na1-xxxx... 
+    # Landbot
     LANDBOT_API_TOKEN=xxxx...
+
+    # HubSpot App (OAuth)
+    HUBSPOT_CLIENT_ID=xxxx...
+    HUBSPOT_CLIENT_SECRET=xxxx...
+    HUBSPOT_REFRESH_TOKEN=xxxx...
+
+    # HubSpot Developer (Only for registration)
+    HUBSPOT_DEVELOPER_API_KEY=xxxx...
+    HUBSPOT_APP_ID=xxxx...
+
+    # HubSpot Channel (Generated)
+    HUBSPOT_CHANNEL_ID=xxxx...
+    HUBSPOT_CHANNEL_ACCOUNT_ID=xxxx...
     ```
 
 ## 🏃 Como Ejecutar
@@ -61,7 +74,7 @@ Si estás usando un túnel local (`localtunnel`, `ngrok`), la URL cambiará cada
 1. **En HubSpot:** Ejecuta el script de actualización rápida:
 
     ```bash
-    python3 src/scripts/update_webhook.py https://TU-NUEVA-URL.loca.lt/webhook/hubspot-outbound
+    python src/scripts/update_webhook.py https://TU-NUEVA-URL.loca.lt/webhook/hubspot-outbound
     ```
 
 2. **En Landbot:** Ve al bloque **Webhook** en tu flujo y actualiza la URL a:
@@ -69,6 +82,8 @@ Si estás usando un túnel local (`localtunnel`, `ngrok`), la URL cambiará cada
 
 ### Scripts de Utilidad
 
-* `python src/scripts/oauth_setup.py`: Realiza el handshake inicial de OAuth.
-* `python src/scripts/register_channel.py`: Registra el canal personalizado en HubSpot.
+* `python src/scripts/oauth_setup.py`: Realiza el handshake inicial de OAuth para obtener el `HUBSPOT_REFRESH_TOKEN`.
+* `python src/scripts/register_channel.py`: Registra el canal personalizado en HubSpot (Crea el Channel y el ChannelAccount).
 * `python src/scripts/update_webhook.py`: Actualiza la URL del webhook en el canal de HubSpot sin tener que borrar y recrear todo el canal.
+* `python src/scripts/check_channel.py`: Verifica el estado actual del canal en HubSpot.
+* `python src/scripts/update_channel_capabilities.py`: Utilidad para actualizar qué tipos de mensajes soporta el canal (adjuntos, etc).

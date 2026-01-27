@@ -55,40 +55,76 @@ class HubSpotService:
             return self._refresh_access_token()
         return self._access_token
 
-    def get_or_create_contact(self, name: str, phone: str) -> str:
+    def get_or_create_contact(self, name: str, phone: str, landbot_id: str = None) -> str:
         """
-        Search for contact by phone. If not found, create one.
+        Search for contact by phone or landbot_customer_id. If not found, create one.
         Returns Contact ID.
         """
         # Ensure token is valid
         self.get_token()
         
-        # 1. Search by Phone
-        filter_group = {
-            "filters": [{
+        # 1. Search by Phone or Landbot ID
+        filters = []
+        if phone:
+            filters.append({
                 "propertyName": "phone",
                 "operator": "EQ",
                 "value": phone
-            }]
-        }
-        search_req = ContactSearchRequest(filter_groups=[filter_group], properties=["firstname", "phone"])
+            })
         
+        if landbot_id:
+            filters.append({
+                "propertyName": settings.PROP_LANDBOT_ID,
+                "operator": "EQ",
+                "value": landbot_id
+            })
+
+        # We search with OR logic if possible, but HubSpot search filters are AND by default within a group.
+        # So we try search by Landbot ID first, then Phone.
+        
+        contact_id = None
+        
+        # Strategy A: Search by Landbot ID
+        if landbot_id:
+            filter_group = {"filters": [{"propertyName": settings.PROP_LANDBOT_ID, "operator": "EQ", "value": landbot_id}]}
+            search_req = ContactSearchRequest(filter_groups=[filter_group], properties=["firstname", "phone", settings.PROP_LANDBOT_ID])
+            try:
+                search_res = self.client.crm.contacts.search_api.do_search(public_object_search_request=search_req)
+                if search_res.results:
+                    contact_id = search_res.results[0].id
+            except Exception as e:
+                logger.warning(f"Search by {settings.PROP_LANDBOT_ID} failed: {e}")
+
+        # Strategy B: Search by Phone
+        if not contact_id and phone:
+            filter_group = {"filters": [{"propertyName": "phone", "operator": "EQ", "value": phone}]}
+            search_req = ContactSearchRequest(filter_groups=[filter_group], properties=["firstname", "phone", settings.PROP_LANDBOT_ID])
+            try:
+                search_res = self.client.crm.contacts.search_api.do_search(public_object_search_request=search_req)
+                if search_res.results:
+                    contact_id = search_res.results[0].id
+            except Exception as e:
+                logger.warning(f"Search by phone failed: {e}")
+
+        if contact_id:
+            # Optional: Update landbot_id on existing contact if missing
+            return contact_id
+
+        # 2. Create if not found
         try:
-            search_res = self.client.crm.contacts.search_api.do_search(public_object_search_request=search_req)
-            if search_res.results:
-                return search_res.results[0].id
-            
-            # 2. Create if not found
             properties = {
                 "firstname": name,
                 "phone": phone
             }
+            if landbot_id:
+                properties[settings.PROP_LANDBOT_ID] = landbot_id
+                
             contact_input = ContactInput(properties=properties)
             create_res = self.client.crm.contacts.basic_api.create(simple_public_object_input_for_create=contact_input)
             return create_res.id
             
         except Exception as e:
-            logger.error(f"Error in get_or_create_contact: {e}")
+            logger.error(f"Error in creating contact: {e}")
             raise e
 
     def publish_message_to_channel(self, landbot_id: int, message_text: str, sender_name: str = "Visitor", phone: str = None):

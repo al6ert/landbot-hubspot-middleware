@@ -43,10 +43,9 @@ async def landbot_inbound(request: Request, background_tasks: BackgroundTasks):
 
         for msg_item in messages:
             # 1. Identify Sender
-            # In MessageHooks: msg_item['sender']['type'] 
-            # In Webhook block: might be different
             sender = msg_item.get("sender", {})
-            sender_type = sender.get("type") or msg_item.get("author_type")
+            # Default to 'customer' if not specified (common in direct Webhook blocks)
+            sender_type = sender.get("type") or msg_item.get("author_type") or "customer"
             
             if sender_type != "customer":
                 logger.info(f"Ignoring message from {sender_type}")
@@ -62,9 +61,12 @@ async def landbot_inbound(request: Request, background_tasks: BackgroundTasks):
             # If agent_id is present, it means a human is/was assigned
             agent_id = customer.get("agent_id")
             
-            # IMPORTANT: We only bridge to HubSpot if an agent is assigned
-            # This prevents bot "noise" from filling HubSpot
-            if not agent_id:
+            # IMPORTANT: We only bridge to HubSpot if an agent is assigned.
+            # EXCEPTION: If the payload came from a direct Webhook block (not MessageHook), 
+            # we assume the user explicitly wants to send this message.
+            is_direct_webhook = "messages" not in payload
+            
+            if not agent_id and not is_direct_webhook:
                 logger.info(f"Ignoring message from customer {customer_id}: No agent assigned (Bot mode)")
                 continue
 
@@ -99,9 +101,9 @@ async def process_landbot_to_hubspot(customer_id, customer_name, customer_phone,
     try:
         contact_id = None
         # 1. Ensure Contact Exists
-        if customer_phone:
+        if customer_id:
             try:
-                contact_id = hubspot_service.get_or_create_contact(customer_name, customer_phone)
+                contact_id = hubspot_service.get_or_create_contact(customer_name, customer_phone, landbot_id=str(customer_id))
             except Exception as e:
                 logger.error(f"Failed to sync contact to HubSpot: {e}")
 
