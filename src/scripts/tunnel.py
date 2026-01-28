@@ -42,22 +42,33 @@ def run_tunnel():
             url = match.group(1)
             webhook_url = f"{url}/webhook/hubspot-outbound"
             print(f"\n✅ Tunnel ready: {url}")
-            print(f"🔄 Updating HubSpot with: {webhook_url}")
             
-            # Execute the update script
-            update_cmd = [sys.executable, 'src/scripts/update_webhook.py', webhook_url]
+            # Execute the HubSpot update script
+            hubspot_update_cmd = [sys.executable, 'src/scripts/update_webhook.py', webhook_url]
             try:
-                # Run the update script as a subprocess
-                result = subprocess.run(update_cmd, capture_output=True, text=True)
+                print(f"🔄 Updating HubSpot with: {webhook_url}")
+                result = subprocess.run(hubspot_update_cmd, capture_output=True, text=True)
                 if result.returncode == 0:
                     print("✅ HubSpot updated successfully!")
                 else:
                     print(f"❌ Error updating HubSpot:\n{result.stderr}")
             except Exception as e:
-                print(f"❌ Failed to run update script: {e}")
+                print(f"❌ Failed to run HubSpot update script: {e}")
+
+            # Execute the Landbot update script
+            landbot_webhook_url = f"{url}/webhook/landbot-inbound"
+            landbot_update_cmd = [sys.executable, 'src/scripts/update_landbot_webhook.py', landbot_webhook_url]
+            try:
+                print(f"🔄 Updating Landbot with: {landbot_webhook_url}")
+                result = subprocess.run(landbot_update_cmd, capture_output=True, text=True)
+                if result.returncode == 0:
+                    print("✅ Landbot updated successfully!")
+                else:
+                    print(f"❌ Error updating Landbot:\n{result.stderr}")
+            except Exception as e:
+                print(f"❌ Failed to run Landbot update script: {e}")
             
-            print("\n🚀 Tunnel is LIVE. Keep this process running.")
-            print(f"📢 IMPORTANT: Update Landbot Webhook to: {url}/webhook/landbot-inbound\n")
+            print("\n🚀 Tunnel is LIVE and Webhooks are registered. Keep this process running.")
             break
 
     # Keep reading output to prevent buffer filled and keep process alive
