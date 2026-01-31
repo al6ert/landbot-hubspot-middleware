@@ -32,8 +32,9 @@ class LandbotService:
             if response.status_code >= 400:
                 logger.error(f"❌ Landbot API Error ({response.status_code}): {response.text}")
             response.raise_for_status()
-            logger.info(f"Message sent to Landbot successfully.")
-            return response.json()
+            res_data = response.json()
+            logger.info(f"Message sent to Landbot successfully. Response: {res_data}")
+            return res_data
         except requests.exceptions.RequestException as e:
             logger.error(f"Failed to send message to Landbot: {e}")
             raise e

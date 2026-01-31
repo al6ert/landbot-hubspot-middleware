@@ -93,7 +93,10 @@ class HubSpotService:
                 if search_res.results:
                     contact_id = search_res.results[0].id
             except Exception as e:
-                logger.warning(f"Search by {settings.PROP_LANDBOT_ID} failed: {e}")
+                if "PROPERTY_DOESNT_EXIST" in str(e) or "(400)" in str(e):
+                    logger.warning(f"Property '{settings.PROP_LANDBOT_ID}' does not exist in HubSpot. Please create it manually.")
+                else:
+                    logger.warning(f"Search by {settings.PROP_LANDBOT_ID} failed: {e}")
 
         # Strategy B: Search by Phone
         if not contact_id and phone:
@@ -124,6 +127,16 @@ class HubSpotService:
             return create_res.id
             
         except Exception as e:
+            if "PROPERTY_DOESNT_EXIST" in str(e) or "(400)" in str(e):
+                logger.error(f"Failed to create/sync contact: Property '{settings.PROP_LANDBOT_ID}' is missing in HubSpot.")
+                # Try creating without the custom property as fallback
+                try:
+                    properties = {"firstname": name, "phone": phone}
+                    contact_input = ContactInput(properties=properties)
+                    create_res = self.client.crm.contacts.basic_api.create(simple_public_object_input_for_create=contact_input)
+                    return create_res.id
+                except:
+                    pass
             logger.error(f"Error in creating contact: {e}")
             raise e
 

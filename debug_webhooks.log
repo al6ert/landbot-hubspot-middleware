@@ -1,0 +1,119 @@
+2026-01-28 08:29:52,221 - src.main - INFO - Ignoring message from sys
+2026-01-28 08:30:08,144 - src.main - INFO - Ignoring message from customer 507039831: No agent assigned (Bot mode)
+2026-01-28 08:30:10,597 - src.main - INFO - Ignoring message from bot
+2026-01-28 08:30:12,646 - src.main - INFO - Ignoring message from bot
+2026-01-28 08:30:23,085 - src.main - INFO - Ignoring message from customer 507039831: No agent assigned (Bot mode)
+2026-01-28 08:30:25,755 - src.main - INFO - Ignoring message from bot
+2026-01-28 08:30:25,812 - src.main - INFO - Ignoring message from sys
+2026-01-28 08:30:29,851 - src.main - INFO - Processing message for HubSpot: Usuario (507039831): Si
+2026-01-28 08:30:29,853 - src.services.hubspot_service - INFO - Refreshing HubSpot Access Token...
+2026-01-28 08:30:30,170 - src.services.hubspot_service - INFO - Access Token refreshed successfully.
+2026-01-28 08:30:30,354 - src.services.hubspot_service - WARNING - Search by landbot_customer_id failed: (400)
+Reason: Bad Request
+HTTP response headers: HTTPHeaderDict({'Date': 'Wed, 28 Jan 2026 07:30:30 GMT', 'Content-Type': 'application/json;charset=utf-8', 'Content-Length': '123', 'Connection': 'keep-alive', 'CF-Ray': '9c4ec8eb38d6587c-MAD', 'CF-Cache-Status': 'DYNAMIC', 'Strict-Transport-Security': 'max-age=31536000; includeSubDomains; preload', 'Vary': 'origin, Accept-Encoding', 'access-control-allow-credentials': 'false', 'x-content-type-options': 'nosniff', 'x-hubspot-correlation-id': '0897b1bb-16e3-4592-8844-284c9a23ec0d', 'Set-Cookie': '__cf_bm=DKGxSVcZiSxCy9er3WR_2L_KnCpByPpywJGApEBD1jM-1769585430-1.0.1.1-ztIFXQ.jdImE2kZhYSmAcpva.N9Ovhmpl6ImpcqyBFOY_YcLkswTZpdMJ6gTRbX4eeoOHb6V0hqos3bqn_._toyy6Jk1hzXfPM9LO6uFvzs; path=/; expires=Wed, 28-Jan-26 08:00:30 GMT; domain=.hubapi.com; HttpOnly; Secure; SameSite=None', 'Report-To': '{"endpoints":[{"url":"https:\\/\\/a.nel.cloudflare.com\\/report\\/v4?s=nDdn21SFy2riepzxR96YYoFV0gsFl3b9FbGJcqpp%2B5uqelKhXa6wkmtYEY%2FQ0qfBA1b8LrmvgMp2AzxRSxTuEk67V9MKfprsa7sLfuSSn6ohNGlpPcdTWTIDB%2BEaOJsM"}],"group":"cf-nel","max_age":604800}', 'NEL': '{"success_fraction":0.01,"report_to":"cf-nel","max_age":604800}', 'Server': 'cloudflare'})
+HTTP response body: {"status":"error","message":"There was a problem with the request.","correlationId":"0897b1bb-16e3-4592-8844-284c9a23ec0d"}
+
+2026-01-28 08:30:30,547 - src.services.hubspot_service - INFO - Publishing message to HubSpot: {"text": "Si", "channelAccountId": "2589436607", "integrationThreadId": "507039831", "messageDirection": "INCOMING", "senders": [{"name": "Usuario", "deliveryIdentifier": {"type": "CHANNEL_SPECIFIC_OPAQUE_ID", "value": "507039831"}}]}
+2026-01-28 08:30:30,818 - src.services.hubspot_service - INFO - Message published successfully.
+2026-01-28 08:30:30,818 - src.main - INFO - Thread ID received: 17380677837, Contact ID: 667865029848
+2026-01-28 08:30:30,818 - src.main - INFO - Waiting for HubSpot to create the ticket...
+2026-01-28 08:30:35,820 - src.services.hubspot_service - INFO - Checking for ticket associated with thread 17380677837...
+2026-01-28 08:30:35,987 - src.services.hubspot_service - INFO - Found associated ticket: 367585983699
+2026-01-28 08:30:36,258 - src.services.hubspot_service - INFO - Successfully associated contact 667865029848 with ticket 367585983699
+2026-01-28 08:30:42,986 - src.main - INFO - Processing message for HubSpot: Usuario (507039831): Vale, me ves?
+2026-01-28 08:30:43,153 - src.services.hubspot_service - WARNING - Search by landbot_customer_id failed: (400)
+Reason: Bad Request
+HTTP response headers: HTTPHeaderDict({'Date': 'Wed, 28 Jan 2026 07:30:43 GMT', 'Content-Type': 'application/json;charset=utf-8', 'Content-Length': '123', 'Connection': 'keep-alive', 'CF-Ray': '9c4ec93b2a8ef769-MAD', 'CF-Cache-Status': 'DYNAMIC', 'Strict-Transport-Security': 'max-age=31536000; includeSubDomains; preload', 'Vary': 'origin, Accept-Encoding', 'access-control-allow-credentials': 'false', 'x-content-type-options': 'nosniff', 'x-hubspot-correlation-id': 'c116239d-bc28-4fc3-a159-26fd1c752566', 'Set-Cookie': '__cf_bm=s_VYmDgg4cppk68h3YNLP.P4_MA2KzDouANsN.9GAAM-1769585443-1.0.1.1-W6LcHnZpVp1axJxJU7fnHSe4jUQoCHxxkP_kB8Vu.9fLPdcGZuLDDvZ9eLKDonh594fanRDFRL6ZNcaR2oOSYUWpSoThdpUwlWHlwvXQN.4; path=/; expires=Wed, 28-Jan-26 08:00:43 GMT; domain=.hubapi.com; HttpOnly; Secure; SameSite=None', 'Report-To': '{"endpoints":[{"url":"https:\\/\\/a.nel.cloudflare.com\\/report\\/v4?s=BVAiPayCMi%2Bz3rF9d3BGkuLDqb2%2BhMQbeHGm7momSg%2F4IqWKZA1jQO2%2F6Kly2MmlrjUzQLnHEHeBV7IcZmRHi7gPpF3KudUhKFWMjLJocSqnA0PG1ZL%2BeQuqvMpgNNvt"}],"group":"cf-nel","max_age":604800}', 'NEL': '{"success_fraction":0.01,"report_to":"cf-nel","max_age":604800}', 'Server': 'cloudflare'})
+HTTP response body: {"status":"error","message":"There was a problem with the request.","correlationId":"c116239d-bc28-4fc3-a159-26fd1c752566"}
+
+2026-01-28 08:30:43,364 - src.services.hubspot_service - INFO - Publishing message to HubSpot: {"text": "Vale, me ves?", "channelAccountId": "2589436607", "integrationThreadId": "507039831", "messageDirection": "INCOMING", "senders": [{"name": "Usuario", "deliveryIdentifier": {"type": "CHANNEL_SPECIFIC_OPAQUE_ID", "value": "507039831"}}]}
+2026-01-28 08:30:43,592 - src.services.hubspot_service - INFO - Message published successfully.
+2026-01-28 08:30:43,592 - src.main - INFO - Thread ID received: 17380677837, Contact ID: 667865029848
+2026-01-28 08:30:43,592 - src.main - INFO - Waiting for HubSpot to create the ticket...
+2026-01-28 08:30:48,593 - src.services.hubspot_service - INFO - Checking for ticket associated with thread 17380677837...
+2026-01-28 08:30:48,759 - src.services.hubspot_service - INFO - Found associated ticket: 367585983699
+2026-01-28 08:30:48,999 - src.services.hubspot_service - INFO - Successfully associated contact 667865029848 with ticket 367585983699
+2026-01-28 08:30:59,649 - src.main - INFO - Received HubSpot payload: {'type': 'OUTGOING_CHANNEL_MESSAGE_CREATED', 'channelId': '2300310', 'message': {'text': 'te vi', 'richText': '<div style="" dir="auto" data-top-level="true"><p style="margin:0;">te vi</p></div>'}, 'channelIntegrationThreadIds': ['507039831'], 'recipients': [], 'senders': []}
+2026-01-28 08:30:59,649 - src.main - INFO - Found Landbot ID in thread IDs: 507039831
+2026-01-28 08:30:59,652 - src.services.landbot_service - INFO - Sending message to Landbot (507039831): te vi
+2026-01-28 08:31:01,004 - src.services.landbot_service - INFO - Message sent to Landbot successfully.
+2026-01-28 08:31:01,696 - src.main - INFO - Ignoring message from agent
+2026-01-28 08:32:07,232 - src.main - INFO - Received HubSpot payload: {'type': 'OUTGOING_CHANNEL_MESSAGE_CREATED', 'channelId': '2300310', 'message': {'text': 'ahi', 'richText': '<div style="" dir="auto" data-top-level="true"><p style="margin:0;"><br class="hs-trailingbreak"></p><img src="https://api-eu1.hubspot.com/filemanager/api/v2/files/353528436923/signed-url-redirect?portalId=147674418" width="400" height="270.81545064377684"><p style="margin:0;">ahi</p></div>'}, 'channelIntegrationThreadIds': ['507039831'], 'recipients': [], 'senders': []}
+2026-01-28 08:32:07,232 - src.main - INFO - Found Landbot ID in thread IDs: 507039831
+2026-01-28 08:32:07,233 - src.services.landbot_service - INFO - Sending message to Landbot (507039831): ahi
+2026-01-28 08:32:08,293 - src.services.landbot_service - INFO - Message sent to Landbot successfully.
+2026-01-28 08:32:08,674 - src.main - INFO - Ignoring message from agent
+2026-01-28 09:47:40,254 - src.main - INFO - Ignoring message from customer 283351870: No agent assigned (Bot mode)
+2026-01-28 09:47:41,559 - src.main - INFO - Ignoring message from bot
+2026-01-28 09:47:43,341 - src.main - INFO - Ignoring message from bot
+2026-01-28 09:47:52,270 - src.main - INFO - Ignoring message from customer 283351870: No agent assigned (Bot mode)
+2026-01-28 09:50:18,359 - src.main - INFO - Ignoring message from customer 283351870: No agent assigned (Bot mode)
+2026-01-28 09:50:20,835 - src.main - INFO - Ignoring message from bot
+2026-01-28 09:50:22,183 - src.main - INFO - Ignoring message from bot
+2026-01-28 09:50:30,650 - src.main - INFO - Ignoring message from customer 283351870: No agent assigned (Bot mode)
+2026-01-28 09:50:32,396 - src.main - INFO - Ignoring message from bot
+2026-01-28 09:50:32,776 - src.main - INFO - Ignoring message from sys
+2026-01-28 09:50:47,309 - src.main - INFO - Processing message for HubSpot: Coral (283351870): Testttt
+2026-01-28 09:50:47,309 - src.services.hubspot_service - INFO - Refreshing HubSpot Access Token...
+2026-01-28 09:50:47,612 - src.services.hubspot_service - INFO - Access Token refreshed successfully.
+2026-01-28 09:50:47,792 - src.services.hubspot_service - WARNING - Search by landbot_customer_id failed: (400)
+Reason: Bad Request
+HTTP response headers: HTTPHeaderDict({'Date': 'Wed, 28 Jan 2026 08:50:47 GMT', 'Content-Type': 'application/json;charset=utf-8', 'Content-Length': '123', 'Connection': 'keep-alive', 'CF-Ray': '9c4f3e880c67f771-MAD', 'CF-Cache-Status': 'DYNAMIC', 'Strict-Transport-Security': 'max-age=31536000; includeSubDomains; preload', 'Vary': 'origin, Accept-Encoding', 'access-control-allow-credentials': 'false', 'x-content-type-options': 'nosniff', 'x-hubspot-correlation-id': 'b962c827-f502-476a-8276-8a4f7fd13947', 'Set-Cookie': '__cf_bm=7PJ.r_tqpW9P8M6qjtOd3cHjfqC2a.Mkt6Llm9lRyLM-1769590247-1.0.1.1-ocLVmsDsQIUdeppAt2i4ooWT.qR.lPWL70klxt6g0wALHauO.HGffIyRZfPxH0Lt1bgtn0ZOSho7HWalCgtxz5XRnEeWGynm_n4ELt99mJ0; path=/; expires=Wed, 28-Jan-26 09:20:47 GMT; domain=.hubapi.com; HttpOnly; Secure; SameSite=None', 'Report-To': '{"endpoints":[{"url":"https:\\/\\/a.nel.cloudflare.com\\/report\\/v4?s=%2BNknqIxz7XoKXDScl%2FZGaPQ%2FKhJA13fqrTQVoRLE7BofYVKNxjvLqFPCOpJs4Cva%2BaUxE8ri4%2FnpXpSl8mKuB7cZEOpiWDdclrAxrb5HkZePHmGzttNkzDqXGzqT3fLA"}],"group":"cf-nel","max_age":604800}', 'NEL': '{"success_fraction":0.01,"report_to":"cf-nel","max_age":604800}', 'Server': 'cloudflare'})
+HTTP response body: {"status":"error","message":"There was a problem with the request.","correlationId":"b962c827-f502-476a-8276-8a4f7fd13947"}
+
+2026-01-28 09:50:48,381 - src.services.hubspot_service - ERROR - Error in creating contact: (400)
+Reason: Bad Request
+HTTP response headers: HTTPHeaderDict({'Date': 'Wed, 28 Jan 2026 08:50:48 GMT', 'Content-Type': 'application/json;charset=utf-8', 'Content-Length': '566', 'Connection': 'keep-alive', 'CF-Ray': '9c4f3e8a7a350d44-MAD', 'CF-Cache-Status': 'DYNAMIC', 'Strict-Transport-Security': 'max-age=31536000; includeSubDomains; preload', 'Vary': 'origin, Accept-Encoding', 'access-control-allow-credentials': 'false', 'x-hubspot-correlation-id': 'a4e39b45-61bb-4a49-836f-bbee269ef8b2', 'x-hubspot-ratelimit-interval-milliseconds': '10000', 'x-hubspot-ratelimit-max': '110', 'x-hubspot-ratelimit-remaining': '109', 'x-hubspot-ratelimit-secondly': '11', 'x-hubspot-ratelimit-secondly-remaining': '10', 'Set-Cookie': '__cf_bm=RnAvqK_8B.pxMtlI1FhKQvpG74JmAIY_8OQFTWwWzag-1769590248-1.0.1.1-RuQDNmUAzM0uJJoQbC5pOzNRBDaqxKaygA9aMDLyzKEbq8pWRrWYLn9xy3CgyC1QTD3eVQ0TsRqg_eeCUc6npX1pAeqtMUk744Y0HrX8CnU; path=/; expires=Wed, 28-Jan-26 09:20:48 GMT; domain=.hubapi.com; HttpOnly; Secure; SameSite=None', 'Report-To': '{"endpoints":[{"url":"https:\\/\\/a.nel.cloudflare.com\\/report\\/v4?s=bcLNunWSXWsponN9ASTVBET543wQ9O5pC7MZYPbzKhx2MaKcAH8gr3zEgzCtGu7czsSMByA4EbXbaVUSFzWggf5yATmfiT6QKsB5OeQGHMz7xt5iB2FNacdHoWsSsHB6"}],"group":"cf-nel","max_age":604800}', 'NEL': '{"success_fraction":0.01,"report_to":"cf-nel","max_age":604800}', 'Server': 'cloudflare'})
+HTTP response body: {"status":"error","message":"Property values were not valid: [{\"isValid\":false,\"message\":\"Property \\\"landbot_customer_id\\\" does not exist\",\"error\":\"PROPERTY_DOESNT_EXIST\",\"name\":\"landbot_customer_id\",\"localizedErrorMessage\":\"Property \\\"landbot_customer_id\\\" does not exist\",\"portalId\":147674418}]","correlationId":"a4e39b45-61bb-4a49-836f-bbee269ef8b2","errors":[{"message":"Property \"landbot_customer_id\" does not exist","code":"PROPERTY_DOESNT_EXIST","context":{"propertyName":["landbot_customer_id"]}}],"category":"VALIDATION_ERROR"}
+
+2026-01-28 09:50:48,381 - src.main - ERROR - Failed to sync contact to HubSpot: (400)
+Reason: Bad Request
+HTTP response headers: HTTPHeaderDict({'Date': 'Wed, 28 Jan 2026 08:50:48 GMT', 'Content-Type': 'application/json;charset=utf-8', 'Content-Length': '566', 'Connection': 'keep-alive', 'CF-Ray': '9c4f3e8a7a350d44-MAD', 'CF-Cache-Status': 'DYNAMIC', 'Strict-Transport-Security': 'max-age=31536000; includeSubDomains; preload', 'Vary': 'origin, Accept-Encoding', 'access-control-allow-credentials': 'false', 'x-hubspot-correlation-id': 'a4e39b45-61bb-4a49-836f-bbee269ef8b2', 'x-hubspot-ratelimit-interval-milliseconds': '10000', 'x-hubspot-ratelimit-max': '110', 'x-hubspot-ratelimit-remaining': '109', 'x-hubspot-ratelimit-secondly': '11', 'x-hubspot-ratelimit-secondly-remaining': '10', 'Set-Cookie': '__cf_bm=RnAvqK_8B.pxMtlI1FhKQvpG74JmAIY_8OQFTWwWzag-1769590248-1.0.1.1-RuQDNmUAzM0uJJoQbC5pOzNRBDaqxKaygA9aMDLyzKEbq8pWRrWYLn9xy3CgyC1QTD3eVQ0TsRqg_eeCUc6npX1pAeqtMUk744Y0HrX8CnU; path=/; expires=Wed, 28-Jan-26 09:20:48 GMT; domain=.hubapi.com; HttpOnly; Secure; SameSite=None', 'Report-To': '{"endpoints":[{"url":"https:\\/\\/a.nel.cloudflare.com\\/report\\/v4?s=bcLNunWSXWsponN9ASTVBET543wQ9O5pC7MZYPbzKhx2MaKcAH8gr3zEgzCtGu7czsSMByA4EbXbaVUSFzWggf5yATmfiT6QKsB5OeQGHMz7xt5iB2FNacdHoWsSsHB6"}],"group":"cf-nel","max_age":604800}', 'NEL': '{"success_fraction":0.01,"report_to":"cf-nel","max_age":604800}', 'Server': 'cloudflare'})
+HTTP response body: {"status":"error","message":"Property values were not valid: [{\"isValid\":false,\"message\":\"Property \\\"landbot_customer_id\\\" does not exist\",\"error\":\"PROPERTY_DOESNT_EXIST\",\"name\":\"landbot_customer_id\",\"localizedErrorMessage\":\"Property \\\"landbot_customer_id\\\" does not exist\",\"portalId\":147674418}]","correlationId":"a4e39b45-61bb-4a49-836f-bbee269ef8b2","errors":[{"message":"Property \"landbot_customer_id\" does not exist","code":"PROPERTY_DOESNT_EXIST","context":{"propertyName":["landbot_customer_id"]}}],"category":"VALIDATION_ERROR"}
+
+2026-01-28 09:50:48,382 - src.services.hubspot_service - INFO - Publishing message to HubSpot: {"text": "Testttt", "channelAccountId": "2589436607", "integrationThreadId": "283351870", "messageDirection": "INCOMING", "senders": [{"name": "Coral", "deliveryIdentifier": {"type": "CHANNEL_SPECIFIC_OPAQUE_ID", "value": "283351870"}}]}
+2026-01-28 09:50:48,948 - src.services.hubspot_service - INFO - Message published successfully.
+2026-01-28 09:50:48,948 - src.main - INFO - Thread ID received: 17388162241, Contact ID: None
+2026-01-28 09:50:48,948 - src.main - WARNING - No contactId available (phone missing or sync failed).
+2026-01-28 09:51:11,787 - src.main - INFO - Received HubSpot payload: {'type': 'OUTGOING_CHANNEL_MESSAGE_CREATED', 'channelId': '2300310', 'message': {'text': 'hola', 'richText': '<div style="" dir="auto" data-top-level="true"><p style="margin:0;">hola</p></div>'}, 'channelIntegrationThreadIds': ['283351870'], 'recipients': [], 'senders': []}
+2026-01-28 09:51:11,787 - src.main - INFO - Found Landbot ID in thread IDs: 283351870
+2026-01-28 09:51:11,787 - src.services.landbot_service - INFO - Sending message to Landbot (283351870): hola
+2026-01-28 09:51:12,879 - src.services.landbot_service - INFO - Message sent to Landbot successfully.
+2026-01-28 09:51:19,918 - src.main - INFO - Ignoring message from agent
+2026-01-28 09:58:17,081 - src.main - INFO - Received HubSpot payload: {'type': 'OUTGOING_CHANNEL_MESSAGE_CREATED', 'channelId': '2300310', 'message': {'text': 'hola?', 'richText': '<div style="" dir="auto" data-top-level="true"><p style="margin:0;">hola?</p><p style="margin:0;"><br class="hs-trailingbreak"></p></div>'}, 'channelIntegrationThreadIds': ['507039831'], 'recipients': [], 'senders': []}
+2026-01-28 09:58:17,081 - src.main - INFO - Found Landbot ID in thread IDs: 507039831
+2026-01-28 09:58:17,081 - src.services.landbot_service - INFO - Sending message to Landbot (507039831): hola?
+2026-01-28 09:58:18,313 - src.services.landbot_service - INFO - Message sent to Landbot successfully.
+2026-01-28 09:58:23,406 - src.main - INFO - Ignoring message from agent
+2026-01-28 10:07:31,457 - src.main - INFO - Received HubSpot payload: {'type': 'OUTGOING_CHANNEL_MESSAGE_CREATED', 'channelId': '2300310', 'message': {'text': 'hola coral', 'richText': '<div style="" dir="auto" data-top-level="true"><p style="margin:0;">hola coral</p><p style="margin:0;"><br class="hs-trailingbreak"></p></div>'}, 'channelIntegrationThreadIds': ['283351870'], 'recipients': [], 'senders': []}
+2026-01-28 10:07:31,457 - src.main - INFO - Found Landbot ID in thread IDs: 283351870
+2026-01-28 10:07:31,459 - src.services.landbot_service - INFO - Sending message to Landbot (283351870): hola coral
+2026-01-28 10:07:32,746 - src.services.landbot_service - INFO - Message sent to Landbot successfully.
+2026-01-28 10:07:33,321 - src.main - INFO - Ignoring message from agent
+2026-01-28 10:42:53,474 - src.main - INFO - Received HubSpot payload: {'type': 'OUTGOING_CHANNEL_MESSAGE_CREATED', 'channelId': '2300310', 'message': {'text': 'jola?', 'richText': '<div style="" dir="auto" data-top-level="true"><p style="margin:0;">jola?</p></div>'}, 'channelIntegrationThreadIds': ['507039831'], 'recipients': [], 'senders': []}
+2026-01-28 10:42:53,474 - src.main - INFO - Found Landbot ID in thread IDs: 507039831
+2026-01-28 10:42:53,477 - src.services.landbot_service - INFO - Sending message to Landbot (507039831): jola?
+2026-01-28 10:42:54,739 - src.services.landbot_service - INFO - Message sent to Landbot successfully. Response: {'success': True}
+2026-01-28 10:42:54,970 - src.main - INFO - Ignoring message from agent
+2026-01-28 10:43:40,922 - src.main - INFO - Received HubSpot payload: {'type': 'OUTGOING_CHANNEL_MESSAGE_CREATED', 'channelId': '2300310', 'message': {'text': 'aixo ho has rebut?', 'richText': '<div style="" dir="auto" data-top-level="true"><p style="margin:0;">aixo ho has rebut?</p><p style="margin:0;"><br class="hs-trailingbreak"></p></div>'}, 'channelIntegrationThreadIds': ['283351870'], 'recipients': [], 'senders': []}
+2026-01-28 10:43:40,922 - src.main - INFO - Found Landbot ID in thread IDs: 283351870
+2026-01-28 10:43:40,923 - src.services.landbot_service - INFO - Sending message to Landbot (283351870): aixo ho has rebut?
+2026-01-28 10:43:42,048 - src.services.landbot_service - INFO - Message sent to Landbot successfully. Response: {'success': True}
+2026-01-28 10:43:42,476 - src.main - INFO - Ignoring message from agent
+2026-01-28 10:43:53,620 - src.main - INFO - Processing message for HubSpot: Coral (283351870): Si
+2026-01-28 10:43:53,621 - src.services.hubspot_service - INFO - Refreshing HubSpot Access Token...
+2026-01-28 10:43:54,012 - src.services.hubspot_service - INFO - Access Token refreshed successfully.
+2026-01-28 10:43:54,193 - src.services.hubspot_service - WARNING - Property 'landbot_customer_id' does not exist in HubSpot. Please create it manually.
+2026-01-28 10:43:54,848 - src.services.hubspot_service - ERROR - Failed to create/sync contact: Property 'landbot_customer_id' is missing in HubSpot.
+2026-01-28 10:43:55,209 - src.services.hubspot_service - INFO - Publishing message to HubSpot: {"text": "Si", "channelAccountId": "2589436607", "integrationThreadId": "283351870", "messageDirection": "INCOMING", "senders": [{"name": "Coral", "deliveryIdentifier": {"type": "CHANNEL_SPECIFIC_OPAQUE_ID", "value": "283351870"}}]}
+2026-01-28 10:43:55,458 - src.services.hubspot_service - INFO - Message published successfully.
+2026-01-28 10:43:55,459 - src.main - INFO - Thread ID received: 17388162241, Contact ID: 668507594994
+2026-01-28 10:43:55,459 - src.main - INFO - Waiting for HubSpot to create the ticket...
+2026-01-28 10:44:00,460 - src.services.hubspot_service - INFO - Checking for ticket associated with thread 17388162241...
+2026-01-28 10:44:00,661 - src.services.hubspot_service - INFO - Found associated ticket: 368196396244
+2026-01-28 10:44:00,941 - src.services.hubspot_service - INFO - Successfully associated contact 668507594994 with ticket 368196396244
+2026-01-28 10:44:07,111 - src.main - INFO - Received HubSpot payload: {'type': 'OUTGOING_CHANNEL_MESSAGE_CREATED', 'channelId': '2300310', 'message': {'text': 'ok', 'richText': '<div style="" dir="auto" data-top-level="true"><p style="margin:0;">ok</p><p style="margin:0;"><br class="hs-trailingbreak"></p></div>'}, 'channelIntegrationThreadIds': ['283351870'], 'recipients': [], 'senders': []}
+2026-01-28 10:44:07,111 - src.main - INFO - Found Landbot ID in thread IDs: 283351870
+2026-01-28 10:44:07,111 - src.services.landbot_service - INFO - Sending message to Landbot (283351870): ok
+2026-01-28 10:44:08,057 - src.services.landbot_service - INFO - Message sent to Landbot successfully. Response: {'success': True}
+2026-01-28 10:44:08,595 - src.main - INFO - Ignoring message from agent

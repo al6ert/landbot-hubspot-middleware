@@ -87,3 +87,24 @@ Si estás usando un túnel local (`localtunnel`, `ngrok`), la URL cambiará cada
 * `python src/scripts/update_webhook.py`: Actualiza la URL del webhook en el canal de HubSpot sin tener que borrar y recrear todo el canal.
 * `python src/scripts/check_channel.py`: Verifica el estado actual del canal en HubSpot.
 * `python src/scripts/update_channel_capabilities.py`: Utilidad para actualizar qué tipos de mensajes soporta el canal (adjuntos, etc).
+
+## 🛣️ Consideraciones de Arquitectura y Futuro
+
+### 1. Viabilidad Multi-cliente (SaaS)
+
+Es totalmente viable, pero requiere evolucionar la arquitectura "No-DB":
+
+* **Base de Datos:** Actualmente usamos `.env` para un único cliente. Para escalar, necesitamos una DB (PostgreSQL/Redis) que asocie un `tenant_id` (en la URL del webhook) con sus respectivas credenciales (`ACCESS_TOKEN`, `CHANNEL_ID`, etc).
+* **OAuth dinámico:** El flujo de `oauth_setup.py` debería ser una interfaz web donde cada cliente autorice la app.
+* **Monetización:** Se puede monetizar mediante el HubSpot App Marketplace, cobrando por "conversaciones procesadas" o una suscripción mensual.
+
+### 2. Escalabilidad y Fiabilidad (Colas)
+
+Actualmente usamos `BackgroundTasks` de FastAPI. Para producción:
+
+* **Redis + Celery/RQ:** Es recomendable mover el procesamiento a colas persistentes. Esto permite gestionar picos de tráfico y, lo más importante, **reintentos automáticos** si la API de Landbot o HubSpot falla temporalmente.
+
+### 3. Despliegue en Producción
+
+* **Adiós al Túnel:** `make tunnel` es una herramienta de desarrollo. En producción, la app debe correr tras un proxy inverso (Nginx) con un dominio fijo y SSL.
+* **Refactor de Config:** El script `update_webhook.py` debería ejecutarse solo durante el setup inicial o via CI/CD cuando el dominio de producción cambie.
